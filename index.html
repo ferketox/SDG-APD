@@ -18,6 +18,17 @@
             color: #fff;
         }
 
+        /* 3D Globe Background */
+        #globe-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         .section {
             min-height: 100vh;
             position: relative;
@@ -25,11 +36,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1;
         }
 
         /* Hero Section */
         #hero {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(20, 20, 20, 0.85) 100%);
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
         }
 
@@ -44,12 +56,14 @@
             margin-bottom: 1rem;
             animation: fadeInUp 1s ease-out;
             letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         .hero-content p {
             font-size: 1.5rem;
             opacity: 0.9;
             animation: fadeInUp 1s ease-out 0.3s backwards;
+            color: #ccc;
         }
 
         .scroll-indicator {
@@ -63,8 +77,10 @@
         .scroll-indicator::before {
             content: '↓';
             font-size: 3rem;
-            color: #4fc3f7;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
+
 
         /* Goal Sections */
         .goal-section {
@@ -73,17 +89,17 @@
         }
 
         #goal9 {
-            background: linear-gradient(135deg, #e65100 0%, #ff6f00 100%);
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(50, 50, 50, 0.95) 100%);
             clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
         }
 
         #goal12 {
-            background: linear-gradient(135deg, #bf8600 0%, #d4a100 100%);
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(60, 60, 60, 0.95) 100%);
             clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
         }
 
         #goal13 {
-            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
             clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
         }
 
@@ -120,6 +136,7 @@
             height: 4px;
             background: #fff;
             transition: width 0.6s ease-out;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         .goal-container.visible .goal-text h2::after {
@@ -130,6 +147,7 @@
             font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 1rem;
+            color: #ddd;
         }
 
         .goal-stats {
@@ -140,7 +158,7 @@
         }
 
         .stat-box {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             padding: 1.5rem;
             border-radius: 10px;
             backdrop-filter: blur(10px);
@@ -162,19 +180,22 @@
 
         .stat-box:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .stat-box h3 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            color: #4fc3f7;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
         .stat-box p {
             font-size: 1rem;
             opacity: 0.9;
+            color: #ccc;
         }
 
         .model-container {
@@ -182,20 +203,23 @@
             height: 500px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.1);
             position: relative;
             transform: perspective(1000px) rotateY(0deg);
             transition: transform 0.5s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .model-container:hover {
             transform: perspective(1000px) rotateY(5deg) scale(1.02);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 255, 255, 0.2);
         }
 
         .model-container iframe {
             width: 100%;
             height: 100%;
             border: none;
+            filter: grayscale(100%) contrast(1.2);
         }
 
         /* Particle Background */
@@ -233,13 +257,16 @@
             background: linear-gradient(90deg, transparent, #fff, transparent);
             opacity: 0;
             transition: opacity 0.3s;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         /* Footer */
         #footer {
-            background: #0a0a0a;
+            background: rgba(5, 5, 5, 0.95);
             padding: 3rem 2rem;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-content {
@@ -256,6 +283,7 @@
             font-size: 1.1rem;
             opacity: 0.8;
             margin-bottom: 2rem;
+            color: #ccc;
         }
 
         .sdg-icons {
@@ -268,7 +296,7 @@
         .sdg-icon {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            background: linear-gradient(135deg, #333, #555);
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -277,16 +305,16 @@
             font-weight: bold;
             transition: all 0.3s ease;
             cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
 
         .sdg-icon:hover {
             transform: translateY(-10px) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(79, 195, 247, 0.5);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #555, #777);
+            border-color: rgba(255, 255, 255, 0.6);
         }
-
-        .sdg-icon.orange { background: linear-gradient(135deg, #ff6f00, #e65100); }
-        .sdg-icon.yellow { background: linear-gradient(135deg, #d4a100, #bf8600); }
-        .sdg-icon.green { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
 
         /* Animations */
         @keyframes fadeInUp {
@@ -324,6 +352,8 @@
     </style>
 </head>
 <body>
+    <div id="globe-container"></div>
+    
     <div class="tear-overlay">
         <div class="tear-line"></div>
     </div>
@@ -437,15 +467,19 @@
             <h3>Together for a Sustainable Future</h3>
             <p>The Sustainable Development Goals are our shared blueprint for peace and prosperity for people and the planet, now and into the future.</p>
             <div class="sdg-icons">
-                <div class="sdg-icon orange" title="Goal 9: Industry, Innovation and Infrastructure">9</div>
-                <div class="sdg-icon yellow" title="Goal 12: Responsible Consumption and Production">12</div>
-                <div class="sdg-icon green" title="Goal 13: Climate Action">13</div>
+                <div class="sdg-icon" title="Goal 9: Industry, Innovation and Infrastructure">9</div>
+                <div class="sdg-icon" title="Goal 12: Responsible Consumption and Production">12</div>
+                <div class="sdg-icon" title="Goal 13: Climate Action">13</div>
             </div>
             <p style="margin-top: 3rem; opacity: 0.6;">Data and imagery sourced from United Nations Sustainable Development Goals</p>
         </div>
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // Three.js 3D Spinning Globe Background
+        let scene, camera, renderer, globe;
+
         // Create floating particles
         function createParticles() {
             const container = document.getElementById('particles');
@@ -461,7 +495,77 @@
                 container.appendChild(particle);
             }
         }
-
+        
+        function initGlobe() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            document.getElementById('globe-container').appendChild(renderer.domElement);
+            
+            // Create globe geometry
+            const geometry = new THREE.SphereGeometry(3, 64, 64);
+            
+            // Create wireframe material
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15
+            });
+            
+            globe = new THREE.Mesh(geometry, material);
+            scene.add(globe);
+            
+            // Add particles around globe
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCnt = 1000;
+            const posArray = new Float32Array(particlesCnt * 3);
+            
+            for(let i = 0; i < particlesCnt * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 15;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.015,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.5
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            camera.position.z = 8;
+            
+            animate();
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotate globe
+            globe.rotation.y += 0.002;
+            globe.rotation.x += 0.0005;
+            
+            // Parallax effect based on scroll
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            camera.position.y = scrollPercent * 3;
+            globe.rotation.y += scrollPercent * 0.001;
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
         // Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.2,
@@ -517,8 +621,11 @@
             });
         });
 
-        // Initialize
         createParticles();
+
+
+        // Initialize globe
+        initGlobe();
     </script>
 </body>
 </html>
