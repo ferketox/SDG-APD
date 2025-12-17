@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Development Goals - Building Our Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            overflow-x: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        .section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 3rem;
+            color: #4fc3f7;
+        }
+
+        /* Goal Sections */
+        .goal-section {
+            position: relative;
+            padding: 4rem 2rem;
+        }
+
+        #goal9 {
+            background: linear-gradient(135deg, #e65100 0%, #ff6f00 100%);
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
+        }
+
+        #goal12 {
+            background: linear-gradient(135deg, #bf8600 0%, #d4a100 100%);
+            clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
+        }
+
+        #goal13 {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .goal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .goal-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .goal-text h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .goal-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: #fff;
+            transition: width 0.6s ease-out;
+        }
+
+        .goal-container.visible .goal-text h2::after {
+            width: 100%;
+        }
+
+        .goal-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .goal-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.5s ease-out;
+        }
+
+        .goal-container.visible .stat-box {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .goal-container.visible .stat-box:nth-child(1) { transition-delay: 0.2s; }
+        .goal-container.visible .stat-box:nth-child(2) { transition-delay: 0.3s; }
+        .goal-container.visible .stat-box:nth-child(3) { transition-delay: 0.4s; }
+        .goal-container.visible .stat-box:nth-child(4) { transition-delay: 0.5s; }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-box h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #4fc3f7;
+        }
+
+        .stat-box p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .model-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s ease;
+        }
+
+        .model-container:hover {
+            transform: perspective(1000px) rotateY(5deg) scale(1.02);
+        }
+
+        .model-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        /* Page Tear Effect */
+        .tear-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .tear-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Footer */
+        #footer {
+            background: #0a0a0a;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-content p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .sdg-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .sdg-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sdg-icon:hover {
+            transform: translateY(-10px) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(79, 195, 247, 0.5);
+        }
+
+        .sdg-icon.orange { background: linear-gradient(135deg, #ff6f00, #e65100); }
+        .sdg-icon.yellow { background: linear-gradient(135deg, #d4a100, #bf8600); }
+        .sdg-icon.green { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(100px, -100px); }
+            50% { transform: translate(200px, 50px); }
+            75% { transform: translate(-50px, -50px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .goal-container { grid-template-columns: 1fr; }
+            .goal-text h2 { font-size: 2rem; }
+            .model-container { height: 300px; }
+            .goal-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tear-overlay">
+        <div class="tear-line"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>Sustainable Development Goals</h1>
+            <p>Building a Better Tomorrow Through Innovation, Responsibility, and Climate Action</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Goal 9: Industry, Innovation and Infrastructure -->
+    <section id="goal9" class="section goal-section">
+        <div class="goal-container">
+            <div class="goal-text">
+                <h2>Goal 9: Industry, Innovation and Infrastructure</h2>
+                <p>Building resilient infrastructure, promoting inclusive and sustainable industrialization, and fostering innovation are essential drivers of economic growth and development.</p>
+                <div class="goal-stats">
+                    <div class="stat-box">
+                        <h3>2.6B</h3>
+                        <p>People lack internet access globally</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>16%</h3>
+                        <p>Of global GDP from manufacturing</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>$100B</h3>
+                        <p>Annual infrastructure gap in developing nations</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>90%</h3>
+                        <p>Of R&D in high-income countries</p>
+                    </div>
+                </div>
+            </div>
+            <div class="model-container">
+                <iframe src="https://my.spline.design/untitled-426d8c89ff004086f29126621ac65078/" frameborder="0"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goal 12: Responsible Consumption and Production -->
+    <section id="goal12" class="section goal-section">
+        <div class="goal-container">
+            <div class="model-container">
+                <iframe src="https://my.spline.design/untitled-9ccf33dfd0924732bec070cdaf37c2bd/" frameborder="0"></iframe>
+            </div>
+            <div class="goal-text">
+                <h2>Goal 12: Responsible Consumption and Production</h2>
+                <p>Ensure sustainable consumption and production patterns to reduce waste, improve resource efficiency, and create a sustainable future for all.</p>
+                <div class="goal-stats">
+                    <div class="stat-box">
+                        <h3>1.3B</h3>
+                        <p>Tons of food wasted annually</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>93%</h3>
+                        <p>Of global water use for agriculture</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>2B</h3>
+                        <p>Tons of municipal solid waste per year</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>$120B</h3>
+                        <p>Potential savings from food waste reduction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goal 13: Climate Action -->
+    <section id="goal13" class="section goal-section">
+        <div class="goal-container">
+            <div class="goal-text">
+                <h2>Goal 13: Climate Action</h2>
+                <p>Take urgent action to combat climate change and its impacts. Climate change affects every country and disrupts national economies, impacting lives and costing communities dearly.</p>
+                <div class="goal-stats">
+                    <div class="stat-box">
+                        <h3>1.1°C</h3>
+                        <p>Global temperature rise since pre-industrial</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>$100B</h3>
+                        <p>Annual climate finance commitment</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>3.3B</h3>
+                        <p>People vulnerable to climate change</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>45%</h3>
+                        <p>Reduction needed in emissions by 2030</p>
+                    </div>
+                </div>
+            </div>
+            <div class="model-container">
+                <iframe src="https://my.spline.design/untitled-c34f7ae81ec0c66c4fd47c6dc3f99fca/" frameborder="0"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section id="footer">
+        <div class="footer-content">
+            <h3>Together for a Sustainable Future</h3>
+            <p>The Sustainable Development Goals are our shared blueprint for peace and prosperity for people and the planet, now and into the future.</p>
+            <div class="sdg-icons">
+                <div class="sdg-icon orange" title="Goal 9: Industry, Innovation and Infrastructure">9</div>
+                <div class="sdg-icon yellow" title="Goal 12: Responsible Consumption and Production">12</div>
+                <div class="sdg-icon green" title="Goal 13: Climate Action">13</div>
+            </div>
+            <p style="margin-top: 3rem; opacity: 0.6;">Data and imagery sourced from United Nations Sustainable Development Goals</p>
+        </div>
+    </section>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all goal containers
+        document.querySelectorAll('.goal-container').forEach(container => {
+            observer.observe(container);
+        });
+
+        // Page tear effect on scroll
+        let lastScrollY = window.scrollY;
+        const tearLine = document.querySelector('.tear-line');
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const scrollDiff = Math.abs(currentScrollY - lastScrollY);
+            
+            if (scrollDiff > 5) {
+                tearLine.style.top = (currentScrollY % window.innerHeight) + 'px';
+                tearLine.style.opacity = '0.8';
+                
+                setTimeout(() => {
+                    tearLine.style.opacity = '0';
+                }, 200);
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Smooth scroll for indicators
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.getElementById('goal9').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Parallax effect for model containers
+        window.addEventListener('scroll', () => {
+            const containers = document.querySelectorAll('.model-container');
+            containers.forEach(container => {
+                const rect = container.getBoundingClientRect();
+                const scrollPercent = (window.innerHeight - rect.top) / window.innerHeight;
+                const translateY = (scrollPercent - 0.5) * 50;
+                container.style.transform = `perspective(1000px) translateY(${translateY}px)`;
+            });
+        });
+
+        // Initialize
+        createParticles();
+    </script>
+</body>
+</html>
